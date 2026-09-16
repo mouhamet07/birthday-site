@@ -1,0 +1,40 @@
+.btn {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-sm);
+  border: none;
+  background-color: var(--theme-primary);
+  color: var(--theme-textOnPrimary);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  opacity: 0.85;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--theme-accent);
+  outline-offset: 2px;
+}
+
+.card {
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  background-color: var(--theme-secondary);
+  text-align: center;
+}
+
+.card-group {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: 1fr;
+}
+
+.container {
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  padding: var(--space-lg) var(--space-sm);
+}

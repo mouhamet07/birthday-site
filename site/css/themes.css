@@ -1,0 +1,24 @@
+/**
+ * Valeurs de repli pour les variables de thème, au cas où le JS
+ * n'aurait pas encore tourné. Les vraies valeurs sont injectées par
+ * univers.js à partir de data/copine.js et data/jumelle.js — ce
+ * fichier ne doit jamais avoir besoin d'être modifié pour changer
+ * une palette.
+ */
+:root {
+  --theme-primary: #999999;
+  --theme-secondary: #eeeeee;
+  --theme-accent: #222222;
+  --theme-background: #ffffff;
+  --theme-textOnPrimary: #ffffff;
+}
+
+/* Décorations spécifiques activées via finalScreen.decoration.
+   Ajouté ici plutôt que codé en dur dans le JS. */
+[data-decoration="hearts"] .final-screen__decoration::before {
+  content: "❤";
+}
+
+[data-decoration="stars"] .final-screen__decoration::before {
+  content: "✨";
+}

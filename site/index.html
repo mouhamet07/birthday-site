@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex, nofollow" />
+        <title>28.09 — Deux histoires, une même date</title>
+
+        <link rel="stylesheet" href="css/variables.css" />
+        <link rel="stylesheet" href="css/themes.css" />
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/components.css" />
+        <link rel="stylesheet" href="css/screens.css" />
+        <link rel="stylesheet" href="css/responsive.css" />
+    </head>
+    <body>
+
+        <main>
+
+            <!-- LANDING -->
+            <section data-screen="landing">
+            <span class="screen-label">landing</span>
+            <h1>28.09</h1>
+            <p>Deux histoires.<br />Une même date.</p>
+            <button class="btn" data-action="go-to" data-step="concept">Entrer</button>
+            </section>
+
+            <!-- CONCEPT -->
+            <section data-screen="concept" hidden>
+            <span class="screen-label">concept</span>
+            <h2>Une expérience créée spécialement pour deux personnes.</h2>
+            <button class="btn" data-action="go-to" data-step="universe-selection">Continuer</button>
+            </section>
+
+            <!-- UNIVERSE SELECTION -->
+            <section data-screen="universe-selection" hidden>
+            <span class="screen-label">universe-selection</span>
+            <h2>Choisis ton univers</h2>
+            <div class="universe-selection__choices">
+                <button class="card btn" data-action="select-universe" data-universe="copine">
+                ❤️<br />Copine
+                </button>
+                <button class="card btn" data-action="select-universe" data-universe="jumelle">
+                ✨<br />Jumelle
+                </button>
+            </div>
+            </section>
+
+            <!-- UNIVERSE INTRO -->
+            <section data-screen="universe-intro" hidden>
+            <span class="screen-label">universe-intro</span>
+            <h2 data-content="universe-name">—</h2>
+            <p data-content="universe-tagline">—</p>
+            <button class="btn" data-action="go-to" data-step="gallery">Continuer</button>
+            </section>
+
+            <!-- GALLERY -->
+            <section data-screen="gallery" hidden>
+            <span class="screen-label">gallery</span>
+            <p>Placeholder galerie / souvenirs.</p>
+            <button class="btn" data-action="go-to" data-step="letter">Continuer</button>
+            </section>
+
+            <!-- LETTER -->
+            <section data-screen="letter" hidden>
+            <span class="screen-label">letter</span>
+            <p>Placeholder lettre.</p>
+            <button class="btn" data-action="go-to" data-step="game-intro">Continuer</button>
+            </section>
+
+            <!-- GAME INTRO -->
+            <section data-screen="game-intro" hidden>
+            <span class="screen-label">game-intro</span>
+            <p>Une petite mission t'attend.</p>
+            <button class="btn" data-action="go-to" data-step="game">Commencer</button>
+            </section>
+
+            <!-- GAME -->
+            <section data-screen="game" hidden>
+            <span class="screen-label">game</span>
+            <p>Placeholder mini-jeu.</p>
+            <button class="btn" data-action="go-to" data-step="mission-complete">Terminer</button>
+            </section>
+
+            <!-- MISSION COMPLETE -->
+            <section data-screen="mission-complete" hidden>
+            <span class="screen-label">mission-complete</span>
+            <h2>Mission accomplie.</h2>
+            <button class="btn" data-action="go-to" data-step="final">Découvrir</button>
+            </section>
+            
+            <!-- FINAL -->
+            <section data-screen="final" hidden>
+            <span class="screen-label">final</span>
+            <div class="final-screen__decoration"></div>
+            <h2>28.09.2026</h2>
+            <p>Placeholder message final.</p>
+            </section>
+        </main>
+        <script type="module" src="js/main.js"></script>
+    </body>
+</html>

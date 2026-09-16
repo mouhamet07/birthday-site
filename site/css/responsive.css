@@ -1,0 +1,30 @@
+/**
+ * Mobile-first : les styles de base (screens.css, components.css)
+ * ciblent déjà le mobile. Ce fichier n'ajoute que les ajustements
+ * pour les écrans plus grands.
+ */
+
+@media (min-width: 600px) {
+  .universe-selection__choices {
+    flex-wrap: nowrap;
+  }
+
+  .card {
+    padding: var(--space-lg);
+  }
+}
+
+@media (min-width: 900px) {
+  :root {
+    --font-size-xl: 2.5rem;
+  }
+}
+
+/* Paysage sur petit écran : éviter que les écrans plein hauteur
+   ne forcent un scroll vertical inutile. */
+@media (max-height: 480px) and (orientation: landscape) {
+  [data-screen] {
+    min-height: auto;
+    padding-block: var(--space-md);
+  }
+}

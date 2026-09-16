@@ -1,0 +1,36 @@
+/**
+ * Styles minimum pour cette phase : juste de quoi identifier
+ * clairement chaque écran pendant les tests de navigation.
+ * Le design final viendra dans une phase ultérieure.
+ */
+
+[data-screen] {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  text-align: center;
+  padding: var(--space-lg) var(--space-sm);
+}
+
+[data-screen] .screen-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--theme-primary);
+  border: 1px dashed var(--theme-primary);
+  border-radius: var(--radius-sm);
+  padding: 0.15rem 0.5rem;
+}
+
+.universe-selection__choices {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.final-screen__decoration {
+  font-size: var(--font-size-xl);
+}
