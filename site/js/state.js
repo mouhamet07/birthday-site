@@ -25,7 +25,9 @@ let state = {
   currentStep: STEPS[0],
   game: {
     currentQuestion: 0,
-    completed: false
+    completed: false,
+    score: 0,
+    answers: []
   }
 };
 
@@ -51,14 +53,14 @@ function subscribe(listener) {
 }
 
 function resetGame() {
-  setState({ game: { currentQuestion: 0, completed: false } });
+  setState({ game: { currentQuestion: 0, completed: false, score: 0, answers: [] } });
 }
 
 function reset() {
   state = {
     universe: null,
     currentStep: STEPS[0],
-    game: { currentQuestion: 0, completed: false }
+    game: { currentQuestion: 0, completed: false, score: 0, answers: [] }
   };
   listeners.forEach((listener) => listener(getState()));
 }

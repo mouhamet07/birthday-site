@@ -1,102 +1,152 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="robots" content="noindex, nofollow" />
-        <title>28.09 — Deux histoires, une même date</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>28.09 — Deux histoires, une même date</title>
 
-        <link rel="stylesheet" href="css/variables.css" />
-        <link rel="stylesheet" href="css/themes.css" />
-        <link rel="stylesheet" href="css/base.css" />
-        <link rel="stylesheet" href="css/components.css" />
-        <link rel="stylesheet" href="css/screens.css" />
-        <link rel="stylesheet" href="css/responsive.css" />
-    </head>
-    <body>
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/themes.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/screens.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
 
-        <main>
+  <main>
 
-            <!-- LANDING -->
-            <section data-screen="landing">
-            <span class="screen-label">landing</span>
-            <h1>28.09</h1>
-            <p>Deux histoires.<br />Une même date.</p>
-            <button class="btn" data-action="go-to" data-step="concept">Entrer</button>
-            </section>
+    <!-- LANDING -->
+    <section class="intro-screen" data-screen="landing">
+      <div class="intro-screen__content">
+        <h1 class="intro-screen__number intro-reveal" style="--reveal-delay:0ms">28.09</h1>
+        <hr class="intro-screen__divider intro-reveal" style="--reveal-delay:150ms" aria-hidden="true" />
+        <h2 class="intro-screen__title intro-reveal" style="--reveal-delay:250ms">
+          Deux histoires.<br />Une même date.
+        </h2>
+        <p class="intro-screen__text intro-reveal" style="--reveal-delay:350ms">
+          Certaines dates ne sont pas de simples dates.
+          Elles deviennent des souvenirs à elles seules.
+        </p>
+        <button class="intro-cta intro-reveal" style="--reveal-delay:450ms" data-action="go-to" data-step="concept">
+          Entrer
+        </button>
+      </div>
+    </section>
 
-            <!-- CONCEPT -->
-            <section data-screen="concept" hidden>
-            <span class="screen-label">concept</span>
-            <h2>Une expérience créée spécialement pour deux personnes.</h2>
-            <button class="btn" data-action="go-to" data-step="universe-selection">Continuer</button>
-            </section>
+    <!-- CONCEPT -->
+    <section class="intro-screen" data-screen="concept" hidden>
+      <div class="intro-screen__content">
+        <h2 class="intro-screen__title intro-reveal" style="--reveal-delay:0ms">
+          Une date.<br />Deux histoires.
+        </h2>
+        <p class="intro-screen__text intro-reveal" style="--reveal-delay:150ms">
+          Le même 28 septembre. Deux personnes. Deux souvenirs.
+          Deux façons de raconter cette journée.
+        </p>
+        <button class="intro-cta intro-reveal" style="--reveal-delay:300ms" data-action="go-to" data-step="universe-selection">
+          Découvrir
+        </button>
+      </div>
+    </section>
 
-            <!-- UNIVERSE SELECTION -->
-            <section data-screen="universe-selection" hidden>
-            <span class="screen-label">universe-selection</span>
-            <h2>Choisis ton univers</h2>
-            <div class="universe-selection__choices">
-                <button class="card btn" data-action="select-universe" data-universe="copine">
-                ❤️<br />Copine
-                </button>
-                <button class="card btn" data-action="select-universe" data-universe="jumelle">
-                ✨<br />Jumelle
-                </button>
-            </div>
-            </section>
+    <!-- UNIVERSE SELECTION -->
+    <section class="intro-screen" data-screen="universe-selection" hidden>
+      <div class="intro-screen__content">
+        <h2 class="intro-screen__title intro-reveal" style="--reveal-delay:0ms">Choisis ton univers</h2>
+        <p class="intro-screen__text intro-reveal" style="--reveal-delay:120ms">
+          Deux chemins. À toi de choisir lequel ouvrir.
+        </p>
+        <div class="universe-selection__choices intro-reveal" style="--reveal-delay:240ms" data-content="universe-choices">
+          <!-- Cartes générées dynamiquement par main.js à partir de copine.js / jumelle.js -->
+        </div>
+      </div>
+    </section>
 
-            <!-- UNIVERSE INTRO -->
-            <section data-screen="universe-intro" hidden>
-            <span class="screen-label">universe-intro</span>
-            <h2 data-content="universe-name">—</h2>
-            <p data-content="universe-tagline">—</p>
-            <button class="btn" data-action="go-to" data-step="gallery">Continuer</button>
-            </section>
+    <!-- UNIVERSE INTRO -->
+    <section class="universe-intro-screen" data-screen="universe-intro" hidden>
+      <div class="universe-intro-screen__content">
+        <div
+          class="universe-intro-screen__visual intro-reveal"
+          style="--reveal-delay:0ms"
+          data-content="hero-visual"
+          aria-hidden="true"
+        ></div>
+        <p class="universe-intro-screen__welcome intro-reveal" style="--reveal-delay:120ms">
+          Bienvenue dans ton univers,
+          <span class="universe-intro-screen__prenom" data-content="universe-prenom">—</span>.
+        </p>
+        <p class="universe-intro-screen__eyebrow intro-reveal" style="--reveal-delay:220ms" data-content="hero-eyebrow">—</p>
+        <h2 class="universe-intro-screen__title intro-reveal" style="--reveal-delay:300ms" data-content="hero-title">—</h2>
+        <p class="universe-intro-screen__subtitle intro-reveal" style="--reveal-delay:380ms" data-content="hero-subtitle">—</p>
+        <button class="btn intro-reveal" style="--reveal-delay:460ms" data-action="go-to" data-step="gallery">
+          Continuer
+        </button>
+      </div>
+    </section>
 
-            <!-- GALLERY -->
-            <section data-screen="gallery" hidden>
-            <span class="screen-label">gallery</span>
-            <p>Placeholder galerie / souvenirs.</p>
-            <button class="btn" data-action="go-to" data-step="letter">Continuer</button>
-            </section>
+    <!-- GALLERY -->
+    <section class="gallery-screen" data-screen="gallery" hidden>
+      <div class="gallery-screen__content" data-content="gallery-content">
+        <!-- Blocs générés dynamiquement par gallery.js à partir de universe.gallery -->
+      </div>
+      <button class="btn gallery-screen__cta" data-action="go-to" data-step="letter">Continuer</button>
+    </section>
 
-            <!-- LETTER -->
-            <section data-screen="letter" hidden>
-            <span class="screen-label">letter</span>
-            <p>Placeholder lettre.</p>
-            <button class="btn" data-action="go-to" data-step="game-intro">Continuer</button>
-            </section>
+    <!-- LETTER -->
+    <section class="letter-screen" data-screen="letter" hidden>
+      <div class="letter-screen__content" data-content="letter-content">
+        <!-- Enveloppe + lettre générées dynamiquement par letter.js à partir de universe.letter -->
+      </div>
+    </section>
 
-            <!-- GAME INTRO -->
-            <section data-screen="game-intro" hidden>
-            <span class="screen-label">game-intro</span>
-            <p>Une petite mission t'attend.</p>
-            <button class="btn" data-action="go-to" data-step="game">Commencer</button>
-            </section>
+    <!-- GAME INTRO -->
+    <section class="game-intro-screen" data-screen="game-intro" hidden>
+      <div class="game-intro-screen__content">
+        <p class="game-intro-screen__eyebrow">Avant de partir...</p>
+        <p class="game-intro-screen__text" data-content="game-intro-text">
+          Une petite mission t'attend.
+        </p>
+        <button class="btn" data-action="go-to" data-step="game">Commencer la mission</button>
+      </div>
+    </section>
 
-            <!-- GAME -->
-            <section data-screen="game" hidden>
-            <span class="screen-label">game</span>
-            <p>Placeholder mini-jeu.</p>
-            <button class="btn" data-action="go-to" data-step="mission-complete">Terminer</button>
-            </section>
+    <!-- GAME -->
+    <section class="game-screen" data-screen="game" hidden>
+      <div class="game-screen__content" data-content="game-content">
+        <!-- Questions générées dynamiquement par game.js à partir de universe.game -->
+      </div>
+    </section>
 
-            <!-- MISSION COMPLETE -->
-            <section data-screen="mission-complete" hidden>
-            <span class="screen-label">mission-complete</span>
-            <h2>Mission accomplie.</h2>
-            <button class="btn" data-action="go-to" data-step="final">Découvrir</button>
-            </section>
-            
-            <!-- FINAL -->
-            <section data-screen="final" hidden>
-            <span class="screen-label">final</span>
-            <div class="final-screen__decoration"></div>
-            <h2>28.09.2026</h2>
-            <p>Placeholder message final.</p>
-            </section>
-        </main>
-        <script type="module" src="js/main.js"></script>
-    </body>
+    <!-- MISSION COMPLETE -->
+    <section data-screen="mission-complete" hidden>
+      <div class="mission-complete-screen__content">
+        <p class="mission-complete-screen__spark intro-reveal" style="--reveal-delay:0ms" aria-hidden="true">✦</p>
+        <p class="mission-complete-screen__eyebrow intro-reveal" style="--reveal-delay:150ms">
+          Une petite mission accomplie
+        </p>
+        <h2 class="mission-complete-screen__title intro-reveal" style="--reveal-delay:280ms">
+          Mission accomplie.
+        </h2>
+        <p class="mission-complete-screen__message intro-reveal" style="--reveal-delay:420ms">
+          Tu as trouvé la dernière pièce de ton histoire.
+        </p>
+        <button class="btn intro-reveal" style="--reveal-delay:560ms" data-action="go-to" data-step="final">
+          Découvrir
+        </button>
+      </div>
+    </section>
+
+    <!-- FINAL -->
+    <section data-screen="final" hidden>
+      <div class="final-screen__content" data-content="final-content">
+        <!-- Contenu généré dynamiquement par final.js à partir de universe.finalScreen -->
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
 </html>

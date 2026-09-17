@@ -3,10 +3,13 @@
  * Aucune logique ici : uniquement du contenu.
  * Le moteur (univers.js, gallery.js, letter.js, game.js) lit cette
  * structure sans jamais connaître le nom "copine" en dur.
+ *
+ * Schéma partagé avec data/jumelle.js — mêmes clés, mêmes niveaux
+ * de nesting, seules les valeurs changent.
  */
 export default {
   id: "copine",
-  name: "Prénom Copine",
+  prenom: "Prénom 1",
   tagline: "Placeholder — une phrase d'accroche viendra ici.",
 
   theme: {
@@ -14,23 +17,78 @@ export default {
     secondary: "#f4ece4",
     accent: "#2f2b28",
     background: "#faf6f2",
+    surface: "#ffffff",
+    text: "#2f2b28",
+    muted: "#a89a92",
     textOnPrimary: "#ffffff"
   },
 
   hero: {
-    image: null // ex: "assets/images/copine/hero.jpg"
+    image: "assets/images/copine/hero.jpg",
+    eyebrow: "Placeholder eyebrow",
+    title: "Placeholder titre hero",
+    subtitle: "Placeholder sous-titre hero."
+  },
+
+  galleryIntro: {
+    eyebrow: "Quelques fragments",
+    title: "Des moments. Des détails. Des souvenirs.",
+    text: "Placeholder — texte d'introduction court de la galerie."
   },
 
   gallery: [
-    { type: "text", content: "Placeholder — premier souvenir." },
-    { type: "photo-large", src: null, caption: "Placeholder légende." }
+    {
+      type: "photo-large",
+      src: "assets/images/copine/gallery-01.jpg",
+      alt: "Placeholder — description de la photo.",
+      caption: "Placeholder légende."
+    },
+    {
+      type: "text",
+      eyebrow: "Petit souvenir",
+      title: "Placeholder titre du souvenir",
+      content: "Placeholder — texte court accompagnant ce souvenir."
+    },
+    {
+      type: "photo-pair",
+      items: [
+        {
+          src: "assets/images/copine/gallery-02.jpg",
+          alt: "Placeholder — description de la photo.",
+          caption: "Placeholder légende."
+        },
+        {
+          src: "assets/images/copine/gallery-03.jpg",
+          alt: "Placeholder — description de la photo.",
+          caption: "Placeholder légende."
+        }
+      ]
+    },
+    {
+      type: "video",
+      src: "assets/videos/copine/memory-01.mp4",
+      poster: "assets/images/copine/memory-01-poster.jpg",
+      caption: "Placeholder légende vidéo."
+    }
   ],
 
   letter: {
-    content: "Placeholder — le texte de la lettre sera fourni plus tard."
+    title: "Une lettre pour toi.",
+    greeting: "Placeholder — formule d'ouverture de la lettre.",
+    paragraphs: [
+      "Placeholder — premier paragraphe de la lettre.",
+      "Placeholder — deuxième paragraphe de la lettre.",
+      "Placeholder — troisième paragraphe de la lettre."
+    ],
+    closing: "Placeholder — phrase de conclusion.",
+    signature: "Placeholder — signature.",
+    openLabel: "Ouvrir la lettre",
+    continueLabel: "Découvrir la suite"
   },
 
   game: {
+    title: "Placeholder titre du jeu",
+    intro: "Une petite mission t'attend.",
     questions: [
       {
         type: "choice",
@@ -49,8 +107,10 @@ export default {
 
   finalScreen: {
     date: "28.09.2026",
-    message: "Placeholder — message final.",
-    image: null,
+    title: "Placeholder titre final",
+    message: "Placeholder — message final, ton plus intime et romantique.",
+    image: "assets/images/copine/final.jpg",
+    imageAlt: "Placeholder — description de la photo finale.",
     decoration: "hearts"
   }
 };

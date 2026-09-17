@@ -1,7 +1,14 @@
 /**
- * Styles minimum pour cette phase : juste de quoi identifier
- * clairement chaque écran pendant les tests de navigation.
- * Le design final viendra dans une phase ultérieure.
+ * Mise en page des écrans.
+ *
+ * .intro-screen est la mise en page partagée par les trois écrans
+ * construits en Phase 2 (landing, concept, universe-selection) :
+ * ils sont affichés avant qu'un univers ne soit choisi, donc utilisent
+ * la palette --intro-* définie dans variables.css plutôt que --theme-*.
+ *
+ * .gallery-screen (Phase 3) et .letter-screen (Phase 4) sont affichés
+ * après qu'un univers a été choisi : ils utilisent donc --theme-*
+ * (hérité de body via base.css), pas --intro-*.
  */
 
 [data-screen] {
@@ -15,6 +22,32 @@
   padding: var(--space-lg) var(--space-sm);
 }
 
+/* ------------------------------------------------------------------ */
+/* Transition d'écran : une seule choréographie, identique pour tous  */
+/* les écrans, pour une sensation cohérente d'un écran à l'autre.     */
+/* Réutilise .is-active, déjà posé par router.js (renderScreen()) en  */
+/* même temps que [hidden] — aucune modification du router requise :  */
+/* le hook existait déjà, simplement jamais consommé en CSS jusqu'ici. */
+/* Une animation (contrairement à une transition) se rejoue dès que   */
+/* l'élément redevient visible, sans nécessiter de "frame gap" —      */
+/* même mécanisme que .intro-reveal juste en dessous.                  */
+/* ------------------------------------------------------------------ */
+
+@keyframes screen-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-screen].is-active {
+  animation: screen-enter var(--transition-base) both;
+}
+
 [data-screen] .screen-label {
   font-size: 0.75rem;
   letter-spacing: 0.05em;
@@ -24,13 +57,832 @@
   padding: 0.15rem 0.5rem;
 }
 
-.universe-selection__choices {
-  display: flex;
-  gap: var(--space-md);
-  flex-wrap: wrap;
-  justify-content: center;
+/* ------------------------------------------------------------------ */
+/* Écrans d'introduction (landing / concept / universe-selection)      */
+/* ------------------------------------------------------------------ */
+
+.intro-screen {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--intro-background);
+  color: var(--intro-foreground);
+  isolation: isolate;
 }
 
+/* Fond : lueur douce centrale + légers points d'étoiles. Purement
+   décoratif, un seul rendu statique — pas d'animation en boucle. */
+.intro-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(ellipse 60% 45% at 50% 28%, rgba(201, 166, 104, 0.16), transparent 70%),
+    radial-gradient(1px 1px at 12% 22%, rgba(244, 237, 226, 0.6), transparent),
+    radial-gradient(1px 1px at 82% 18%, rgba(244, 237, 226, 0.45), transparent),
+    radial-gradient(1px 1px at 68% 62%, rgba(244, 237, 226, 0.5), transparent),
+    radial-gradient(1px 1px at 24% 74%, rgba(244, 237, 226, 0.4), transparent),
+    radial-gradient(1px 1px at 90% 80%, rgba(244, 237, 226, 0.35), transparent),
+    radial-gradient(1px 1px at 45% 88%, rgba(244, 237, 226, 0.3), transparent);
+}
+
+.intro-screen__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  max-width: var(--content-max-width);
+}
+
+.intro-screen__number {
+  font-family: var(--font-display);
+  font-size: var(--font-size-display);
+  line-height: 1;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.intro-screen__divider {
+  width: 2.5rem;
+  height: 1px;
+  background-color: var(--intro-border);
+  border: none;
+  margin: 0;
+}
+
+.intro-screen__title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.intro-screen__text {
+  font-size: var(--font-size-lg);
+  color: var(--intro-muted);
+  max-width: 34ch;
+  margin: 0;
+}
+
+.intro-cta {
+  display: inline-block;
+  padding: 0.75em 2em;
+  border: 1px solid var(--intro-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--intro-foreground);
+  font-family: var(--font-base);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color var(--transition-base), background-color var(--transition-base),
+    transform var(--transition-fast);
+}
+
+.intro-cta:hover,
+.intro-cta:focus-visible {
+  border-color: var(--intro-glow);
+  background-color: rgba(201, 166, 104, 0.08);
+}
+
+.intro-cta:active {
+  transform: scale(0.97);
+}
+
+.intro-cta:focus-visible {
+  outline: 2px solid var(--intro-glow);
+  outline-offset: 3px;
+}
+
+/* Choix de l'univers */
+
+.universe-selection__choices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: 30rem;
+}
+
+.universe-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-lg) var(--space-md);
+  border: 1px solid var(--intro-border);
+  border-radius: var(--radius-md);
+  background-color: rgba(244, 237, 226, 0.03);
+  color: var(--intro-foreground);
+  cursor: pointer;
+  text-align: center;
+  transition: transform var(--transition-base), border-color var(--transition-base);
+}
+
+.universe-card:hover,
+.universe-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--intro-glow);
+}
+
+.universe-card:focus-visible {
+  outline: 2px solid var(--intro-glow);
+  outline-offset: 3px;
+}
+
+/* Retour tactile immédiat : sur mobile il n'y a pas de hover, donc le
+   choix de l'univers doit se sentir "pressé" avant même la navigation. */
+.universe-card:active {
+  transform: scale(0.98);
+  border-color: var(--intro-glow);
+}
+
+.universe-card__visual {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-sm);
+  background-color: var(--universe-swatch, var(--intro-muted));
+  background-size: cover;
+  background-position: center;
+}
+
+.universe-card__prenom {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.universe-card__tagline {
+  font-size: 0.9rem;
+  color: var(--intro-muted);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Choréographie d'entrée : une seule apparition orchestrée, pas de   */
+/* mouvement permanent. Se rejoue naturellement à chaque fois que     */
+/* l'écran repasse de [hidden] à visible (le router bascule l'attribut */
+/* hidden, ce qui retire/réinsère l'élément du rendu).                */
+/* ------------------------------------------------------------------ */
+
+@keyframes intro-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.intro-reveal {
+  animation: intro-reveal var(--transition-slow) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-reveal {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Universe Intro                                                      */
+/*                                                                      */
+/* Écran affiché juste après le choix de l'univers, donc piloté par    */
+/* --theme-* (déjà appliqué par univers.js à ce stade), pas --intro-*. */
+/* N'avait jamais reçu de mise en page dédiée jusqu'à cette phase : le */
+/* HTML se contentait d'empiler du texte brut. Polish ciblé, pas une   */
+/* nouvelle donnée — universe.tagline n'est volontairement pas reprise */
+/* ici (déjà affichée sur la carte de sélection, juste avant).         */
+/* ------------------------------------------------------------------ */
+
+.universe-intro-screen__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  max-width: var(--content-max-width);
+}
+
+.universe-intro-screen__visual {
+  width: 100%;
+  max-width: 18rem;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-md);
+  background-color: var(--theme-primary);
+  background-size: cover;
+  background-position: center;
+  margin-bottom: var(--space-xs);
+}
+
+.universe-intro-screen__welcome {
+  font-size: 0.9rem;
+  color: var(--theme-muted);
+  margin: 0;
+}
+
+.universe-intro-screen__prenom {
+  font-family: var(--font-display);
+  color: var(--theme-primary);
+}
+
+.universe-intro-screen__eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--theme-primary);
+  margin: 0;
+}
+
+.universe-intro-screen__title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.universe-intro-screen__subtitle {
+  color: var(--theme-muted);
+  max-width: 34ch;
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Galerie narrative (Phase 3)                                        */
+/* ------------------------------------------------------------------ */
+
+/* La galerie défile sur plusieurs blocs : elle ne doit pas hériter du
+   centrage plein écran unique des autres [data-screen]. */
+.gallery-screen {
+  min-height: 100svh;
+  display: block;
+  text-align: left;
+  padding: var(--space-xl) var(--space-sm);
+}
+
+.gallery-screen__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+}
+
+.gallery-screen__cta {
+  display: block;
+  margin: var(--space-xl) auto 0;
+}
+
+/* Introduction de la galerie */
+
+.gallery-intro {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.gallery-intro__eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--theme-muted);
+  margin: 0;
+}
+
+.gallery-intro__title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.gallery-intro__text {
+  color: var(--theme-muted);
+  margin: 0;
+}
+
+/* Blocs génériques */
+
+.gallery-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.gallery-media {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--theme-surface);
+}
+
+.gallery-media__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-base);
+}
+
+/* Léger zoom au survol : réservé aux dispositifs à pointeur fin
+   (souris/trackpad). Sur tactile, un hover resterait "collé" après le
+   tap sans jamais se désactiver — donc on ne dépend pas du hover là. */
+@media (hover: hover) and (pointer: fine) {
+  .gallery-block:hover .gallery-media__image {
+    transform: scale(1.03);
+  }
+}
+
+.gallery-caption {
+  font-size: 0.85rem;
+  color: var(--theme-muted);
+  text-align: center;
+  margin: 0;
+}
+
+.gallery-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-md);
+  border: 1px dashed var(--theme-muted);
+  border-radius: var(--radius-md);
+  color: var(--theme-muted);
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+/* Texte narratif */
+
+.gallery-block--text {
+  text-align: center;
+  padding-block: var(--space-sm);
+}
+
+.gallery-block__eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--theme-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.gallery-block__title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.gallery-block__content {
+  color: var(--theme-text);
+  max-width: 42ch;
+  margin-inline: auto;
+}
+
+/* Photo pair */
+
+.gallery-block--photo-pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.gallery-photo-pair__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: 0;
+}
+
+/* Vidéo */
+
+.gallery-media--video {
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+}
+
+.gallery-media__video {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ------------------------------------------------------------------ */
+/* Lettre interactive (Phase 4)                                       */
+/* ------------------------------------------------------------------ */
+
+.letter-screen__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  width: 100%;
+  max-width: var(--content-max-width);
+}
+
+/* Enveloppe */
+
+.envelope {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.envelope__body {
+  position: relative;
+  width: min(70vw, 220px);
+  aspect-ratio: 3 / 2;
+  background-color: var(--theme-surface);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.35);
+  perspective: 600px;
+}
+
+.envelope__flap {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 60%;
+  background-color: var(--theme-secondary);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transition: transform var(--transition-slow);
+}
+
+.envelope__seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: var(--theme-primary);
+  color: var(--theme-textOnPrimary);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.envelope__seal::before {
+  content: "✦";
+}
+
+.envelope.is-open .envelope__flap {
+  transform: rotateX(-160deg);
+}
+
+.envelope.is-open {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.96);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+  transition-delay: 350ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .envelope.is-open,
+  .envelope.is-open .envelope__flap {
+    transition-delay: 0ms;
+  }
+}
+
+.envelope__button {
+  display: inline-block;
+  padding: 0.75em 2em;
+  border: 1px solid var(--theme-muted);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--theme-text);
+  font-family: var(--font-base);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color var(--transition-base), background-color var(--transition-base),
+    transform var(--transition-fast);
+}
+
+.envelope__button:hover,
+.envelope__button:focus-visible {
+  border-color: var(--theme-primary);
+}
+
+.envelope__button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.envelope__button:focus-visible {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: 3px;
+}
+
+.envelope__button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Papier / contenu de la lettre */
+
+.letter-paper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  max-width: 40ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.letter-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  margin: 0;
+}
+
+.letter-title:focus-visible {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: 4px;
+}
+
+.letter-greeting {
+  font-weight: 600;
+  margin: 0;
+}
+
+.letter-paragraph {
+  color: var(--theme-text);
+  line-height: var(--line-height-base);
+  margin: 0;
+}
+
+.letter-closing {
+  font-style: italic;
+  color: var(--theme-muted);
+  margin: 0;
+}
+
+.letter-signature {
+  font-family: var(--font-display);
+  margin: 0;
+}
+
+.letter-continue {
+  margin-top: var(--space-sm);
+}
+
+/* ------------------------------------------------------------------ */
+/* Game intro (Phase 5)                                                */
+/* ------------------------------------------------------------------ */
+
+.game-intro-screen__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  max-width: var(--content-max-width);
+}
+
+.game-intro-screen__eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--theme-muted);
+  margin: 0;
+}
+
+.game-intro-screen__text {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Mini-jeu (Phase 5)                                                  */
+/* ------------------------------------------------------------------ */
+
+.game-screen__content {
+  width: 100%;
+  max-width: var(--content-max-width);
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.game-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.game-progress {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--theme-muted);
+  margin: 0;
+}
+
+.game-question {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-tight);
+  max-width: 32ch;
+  margin: 0;
+}
+
+.game-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.game-option {
+  display: block;
+  width: 100%;
+  padding: 0.85em var(--space-md);
+  border: 1px solid var(--theme-muted);
+  border-radius: var(--radius-sm);
+  background-color: var(--theme-surface);
+  color: var(--theme-text);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: border-color var(--transition-base), transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.game-option:hover:not(:disabled),
+.game-option:focus-visible {
+  border-color: var(--theme-primary);
+}
+
+.game-option:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.game-option:focus-visible {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: 3px;
+}
+
+.game-option:disabled {
+  cursor: default;
+}
+
+.game-option.is-selected {
+  border-color: var(--theme-primary);
+}
+
+.game-option.is-correct {
+  border-color: var(--theme-primary);
+  background-color: var(--theme-secondary);
+}
+
+.game-option.is-wrong {
+  opacity: 0.6;
+  transform: scale(0.99);
+}
+
+.game-feedback {
+  min-height: 1.2em;
+  font-size: 0.9rem;
+  color: var(--theme-muted);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Mission Complete (Phase 6)                                         */
+/* ------------------------------------------------------------------ */
+
+.mission-complete-screen__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  max-width: var(--content-max-width);
+}
+
+.mission-complete-screen__spark {
+  font-size: var(--font-size-xl);
+  color: var(--theme-primary);
+  margin: 0;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--theme-primary) 55%, transparent);
+}
+
+.mission-complete-screen__eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--theme-muted);
+  margin: 0;
+}
+
+.mission-complete-screen__title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.mission-complete-screen__message {
+  color: var(--theme-muted);
+  max-width: 34ch;
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Écran final (Phase 7)                                              */
+/* ------------------------------------------------------------------ */
+
+.final-screen__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  max-width: var(--content-max-width);
+}
+
+/* Lueur douce, unique et statique (pas de boucle) derrière le point
+   culminant de l'expérience — même esprit que le fond de .intro-screen,
+   pour rester cohérent visuellement d'un bout à l'autre du parcours. */
+.final-screen__content::before {
+  content: "";
+  position: absolute;
+  inset: -10% -20%;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse 60% 45% at 50% 20%,
+    color-mix(in srgb, var(--theme-primary) 18%, transparent),
+    transparent 70%
+  );
+}
+
+/* Vide (decoration: "none" ou valeur inconnue) tant que themes.css
+   n'a pas de ::before pour data-decoration correspondant — repli
+   silencieux, pas de règle cassée. */
 .final-screen__decoration {
   font-size: var(--font-size-xl);
+  color: var(--theme-primary);
+  min-height: 1em;
+  margin: 0;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--theme-primary) 45%, transparent);
+}
+
+.final-date {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--theme-muted);
+  margin: 0;
+}
+
+.final-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.final-message {
+  color: var(--theme-text);
+  max-width: 38ch;
+  margin: 0;
+}
+
+.final-image {
+  width: 100%;
+  max-width: 22rem;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--theme-surface);
+}
+
+.final-image__media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }

@@ -24,6 +24,16 @@ function getUniverse(id) {
   return universe;
 }
 
+/**
+ * Retourne la liste de tous les univers disponibles, dans l'ordre de
+ * déclaration. Utilisé pour générer dynamiquement l'écran de choix
+ * (universe-selection) à partir des données, sans jamais coder en
+ * dur "copine" ou "jumelle" dans le HTML.
+ */
+function getAllUniverses() {
+  return Object.values(UNIVERSES);
+}
+
 function applyTheme(universe) {
   if (!universe) return;
 
@@ -47,4 +57,4 @@ function selectUniverse(id) {
   return universe;
 }
 
-export { getUniverse, applyTheme, selectUniverse };
+export { getUniverse, getAllUniverses, applyTheme, selectUniverse };

@@ -6,17 +6,30 @@
 
 @media (min-width: 600px) {
   .universe-selection__choices {
-    flex-wrap: nowrap;
+    flex-direction: row;
+    max-width: 42rem;
+  }
+
+  .universe-card {
+    flex: 1;
   }
 
   .card {
     padding: var(--space-lg);
+  }
+
+  .gallery-block--photo-pair {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (min-width: 900px) {
   :root {
     --font-size-xl: 2.5rem;
+  }
+
+  .gallery-screen__content {
+    max-width: 48rem;
   }
 }
 

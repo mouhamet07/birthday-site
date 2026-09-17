@@ -17,14 +17,24 @@
 
   /* Typography */
   --font-base: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
   --font-size-base: 1rem;
   --font-size-lg: 1.25rem;
   --font-size-xl: 2rem;
+  --font-size-display: clamp(3.5rem, 18vw, 7rem);
   --line-height-base: 1.5;
+  --line-height-tight: 1.15;
+
+  /* Easing : deux courbes seulement.
+     - ease-standard : micro-interactions rapides (bouton, carte, hover/press).
+     - ease-emotional : révélations de contenu (reveal, lettre, écran final). */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emotional: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-base: 300ms ease;
+  --transition-fast: 150ms var(--ease-standard);
+  --transition-base: 300ms var(--ease-standard);
+  --transition-slow: 700ms var(--ease-emotional);
 
   /* Layout */
   --content-max-width: 640px;
@@ -32,4 +42,16 @@
   /* Z-index */
   --z-screen: 1;
   --z-overlay: 10;
+
+  /*
+   * Écrans "d'introduction" (landing, concept, universe-selection) :
+   * affichés avant qu'un univers ne soit choisi, donc pas pilotés par
+   * --theme-* (qui représente l'univers sélectionné). Palette fixe,
+   * volontairement distincte des deux univers.
+   */
+  --intro-background: #14100f;
+  --intro-foreground: #f4ede2;
+  --intro-muted: #9c9187;
+  --intro-glow: #c9a668;
+  --intro-border: rgba(244, 237, 226, 0.18);
 }

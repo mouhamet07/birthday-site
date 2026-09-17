@@ -1,11 +1,11 @@
 /**
  * Données de l'univers "jumelle".
- * Même structure exacte que copine.js : le moteur ne doit jamais
+ * Même schéma exact que copine.js : le moteur ne doit jamais
  * avoir besoin de savoir laquelle des deux est laquelle.
  */
 export default {
   id: "jumelle",
-  name: "Prénom Jumelle",
+  prenom: "Prénom 2",
   tagline: "Placeholder — une phrase d'accroche viendra ici.",
 
   theme: {
@@ -13,23 +13,78 @@ export default {
     secondary: "#f1ede4",
     accent: "#2b2a2f",
     background: "#f8f6f1",
+    surface: "#ffffff",
+    text: "#2b2a2f",
+    muted: "#9d97ab",
     textOnPrimary: "#ffffff"
   },
 
   hero: {
-    image: null
+    image: "assets/images/jumelle/hero.jpg",
+    eyebrow: "Placeholder eyebrow",
+    title: "Placeholder titre hero",
+    subtitle: "Placeholder sous-titre hero."
+  },
+
+  galleryIntro: {
+    eyebrow: "Quelques fragments",
+    title: "Des moments. Des détails. Des souvenirs.",
+    text: "Placeholder — texte d'introduction court de la galerie."
   },
 
   gallery: [
-    { type: "text", content: "Placeholder — premier souvenir." },
-    { type: "photo-large", src: null, caption: "Placeholder légende." }
+    {
+      type: "photo-large",
+      src: "assets/images/jumelle/gallery-01.jpg",
+      alt: "Placeholder — description de la photo.",
+      caption: "Placeholder légende."
+    },
+    {
+      type: "text",
+      eyebrow: "Petit souvenir",
+      title: "Placeholder titre du souvenir",
+      content: "Placeholder — texte court accompagnant ce souvenir."
+    },
+    {
+      type: "photo-pair",
+      items: [
+        {
+          src: "assets/images/jumelle/gallery-02.jpg",
+          alt: "Placeholder — description de la photo.",
+          caption: "Placeholder légende."
+        },
+        {
+          src: "assets/images/jumelle/gallery-03.jpg",
+          alt: "Placeholder — description de la photo.",
+          caption: "Placeholder légende."
+        }
+      ]
+    },
+    {
+      type: "video",
+      src: "assets/videos/jumelle/memory-01.mp4",
+      poster: "assets/images/jumelle/memory-01-poster.jpg",
+      caption: "Placeholder légende vidéo."
+    }
   ],
 
   letter: {
-    content: "Placeholder — le texte de la lettre sera fourni plus tard."
+    title: "Une lettre pour toi.",
+    greeting: "Placeholder — formule d'ouverture de la lettre.",
+    paragraphs: [
+      "Placeholder — premier paragraphe de la lettre.",
+      "Placeholder — deuxième paragraphe de la lettre.",
+      "Placeholder — troisième paragraphe de la lettre."
+    ],
+    closing: "Placeholder — phrase de conclusion.",
+    signature: "Placeholder — signature.",
+    openLabel: "Ouvrir la lettre",
+    continueLabel: "Découvrir la suite"
   },
 
   game: {
+    title: "Placeholder titre du jeu",
+    intro: "Une petite mission t'attend.",
     questions: [
       {
         type: "choice",
@@ -48,8 +103,10 @@ export default {
 
   finalScreen: {
     date: "28.09.2026",
-    message: "Placeholder — message final.",
-    image: null,
+    title: "Placeholder titre final",
+    message: "Placeholder — message final, ton chaleureux et sincère.",
+    image: "assets/images/jumelle/final.jpg",
+    imageAlt: "Placeholder — description de la photo finale.",
     decoration: "stars"
   }
 };
