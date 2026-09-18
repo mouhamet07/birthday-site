@@ -20,7 +20,7 @@ export default {
   },
 
   hero: {
-    image: "assets/images/jumelle/hero.jpg",
+    image: "assets/images/jumelle/hero.webp",
     eyebrow: "Placeholder eyebrow",
     title: "Placeholder titre hero",
     subtitle: "Placeholder sous-titre hero."
@@ -35,7 +35,7 @@ export default {
   gallery: [
     {
       type: "photo-large",
-      src: "assets/images/jumelle/gallery-01.jpg",
+      src: "assets/images/jumelle/gallery-01.webp",
       alt: "Placeholder — description de la photo.",
       caption: "Placeholder légende."
     },
@@ -49,12 +49,27 @@ export default {
       type: "photo-pair",
       items: [
         {
-          src: "assets/images/jumelle/gallery-02.jpg",
+          src: "assets/images/jumelle/gallery-02.webp",
           alt: "Placeholder — description de la photo.",
           caption: "Placeholder légende."
         },
         {
-          src: "assets/images/jumelle/gallery-03.jpg",
+          src: "assets/images/jumelle/gallery-03.webp",
+          alt: "Placeholder — description de la photo.",
+          caption: "Placeholder légende."
+        }
+      ]
+    },
+    {
+      type: "photo-pair",
+      items: [
+        {
+          src: "assets/images/jumelle/gallery-04.webp",
+          alt: "Placeholder — description de la photo.",
+          caption: "Placeholder légende."
+        },
+        {
+          src: "assets/images/jumelle/gallery-05.webp",
           alt: "Placeholder — description de la photo.",
           caption: "Placeholder légende."
         }
@@ -62,8 +77,12 @@ export default {
     },
     {
       type: "video",
-      src: "assets/videos/jumelle/memory-01.mp4",
-      poster: "assets/images/jumelle/memory-01-poster.jpg",
+      src: "assets/videos/jumelle/video-01.mp4",
+      caption: "Placeholder légende vidéo."
+    },
+    {
+      type: "video",
+      src: "assets/videos/jumelle/video-02.mp4",
       caption: "Placeholder légende vidéo."
     }
   ],
@@ -105,7 +124,7 @@ export default {
     date: "28.09.2026",
     title: "Placeholder titre final",
     message: "Placeholder — message final, ton chaleureux et sincère.",
-    image: "assets/images/jumelle/final.jpg",
+    image: "",
     imageAlt: "Placeholder — description de la photo finale.",
     decoration: "stars"
   }

@@ -24,7 +24,7 @@ export default {
   },
 
   hero: {
-    image: "assets/images/copine/hero.jpg",
+    image: "assets/images/copine/hero.webp",
     eyebrow: "Placeholder eyebrow",
     title: "Placeholder titre hero",
     subtitle: "Placeholder sous-titre hero."
@@ -39,7 +39,7 @@ export default {
   gallery: [
     {
       type: "photo-large",
-      src: "assets/images/copine/gallery-01.jpg",
+      src: "assets/images/copine/gallery-01.webp",
       alt: "Placeholder — description de la photo.",
       caption: "Placeholder légende."
     },
@@ -53,21 +53,76 @@ export default {
       type: "photo-pair",
       items: [
         {
-          src: "assets/images/copine/gallery-02.jpg",
+          src: "assets/images/copine/gallery-02.webp",
           alt: "Placeholder — description de la photo.",
           caption: "Placeholder légende."
         },
         {
-          src: "assets/images/copine/gallery-03.jpg",
+          src: "assets/images/copine/gallery-03.webp",
           alt: "Placeholder — description de la photo.",
           caption: "Placeholder légende."
         }
       ]
     },
     {
+      type: "photo-pair",
+      items: [
+        {
+          src: "assets/images/copine/gallery-04.webp",
+          alt: "Placeholder — description de la photo.",
+          caption: "Placeholder légende."
+        },
+        {
+          src: "assets/images/copine/gallery-05.webp",
+          alt: "Placeholder — description de la photo.",
+          caption: "Placeholder légende."
+        }
+      ]
+    },
+    {
+      type: "photo-pair",
+      items: [
+        {
+          src: "assets/images/copine/gallery-06.webp",
+          alt: "Placeholder — description de la photo.",
+          caption: "Placeholder légende."
+        },
+        {
+          src: "assets/images/copine/gallery-07.webp",
+          alt: "Placeholder — description de la photo.",
+          caption: "Placeholder légende."
+        }
+      ]
+    },
+    {
+      type: "photo-pair",
+      items: [
+        {
+          src: "assets/images/copine/gallery-08.webp",
+          alt: "Placeholder — description de la photo.",
+          caption: "Placeholder légende."
+        },
+        {
+          src: "assets/images/copine/gallery-09.webp",
+          alt: "Placeholder — description de la photo.",
+          caption: "Placeholder légende."
+        }
+      ]
+    },
+    {
+      type: "photo-large",
+      src: "assets/images/copine/gallery-10.webp",
+      alt: "Placeholder — description de la photo.",
+      caption: "Placeholder légende."
+    },
+    {
       type: "video",
-      src: "assets/videos/copine/memory-01.mp4",
-      poster: "assets/images/copine/memory-01-poster.jpg",
+      src: "assets/videos/copine/video-01.mp4",
+      caption: "Placeholder légende vidéo."
+    },
+    {
+      type: "video",
+      src: "assets/videos/copine/video-02.mp4",
       caption: "Placeholder légende vidéo."
     }
   ],
@@ -109,7 +164,7 @@ export default {
     date: "28.09.2026",
     title: "Placeholder titre final",
     message: "Placeholder — message final, ton plus intime et romantique.",
-    image: "assets/images/copine/final.jpg",
+    image: "",
     imageAlt: "Placeholder — description de la photo finale.",
     decoration: "hearts"
   }

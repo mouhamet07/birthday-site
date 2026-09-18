@@ -1,3 +1,5 @@
+import { playEnvelopeSound } from "./audio.js";
+
 /**
  * Rendu et comportement de l'écran "letter" : enveloppe fermée,
  * ouverture déclenchée par l'utilisateur, révélation progressive du
@@ -81,6 +83,7 @@ function createLetterPaper(letter, onContinue) {
   const paper = document.createElement("div");
   paper.className = "letter-paper";
   paper.hidden = true;
+  paper.setAttribute("aria-hidden", "true");
 
   let step = 0;
 
@@ -131,6 +134,7 @@ function createLetterPaper(letter, onContinue) {
  */
 function openEnvelope(envelope, button, paper) {
   button.disabled = true;
+  playEnvelopeSound();
   envelope.classList.add("is-open");
 
   let revealed = false;
@@ -139,6 +143,7 @@ function openEnvelope(envelope, button, paper) {
     revealed = true;
     envelope.hidden = true;
     paper.hidden = false;
+    paper.removeAttribute("aria-hidden");
     const title = paper.querySelector(".letter-title");
     if (title) title.focus({ preventScroll: false });
   };

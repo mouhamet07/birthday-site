@@ -1,0 +1,451 @@
+# CORRECTION CIBLÉE — birthday-site
+
+Le site a passé une première série de validations automatisées, mais un test manuel réel vient de révéler plusieurs problèmes fonctionnels.
+
+Tu dois maintenant effectuer une **correction ciblée**, sans refonte et sans casser l'architecture existante.
+
+## 1. RÈGLES ABSOLUES
+
+Avant toute modification :
+
+1. Lire `AGENTS.md`.
+2. Inspecter les fichiers actuels.
+3. Inspecter `git status` et `git diff`.
+4. Comprendre le fonctionnement actuel avant de modifier.
+5. Ne pas modifier `.github/agents/`.
+6. Ne pas modifier `AGENTS.md`.
+7. Ne faire aucun commit.
+8. Ne pas utiliser `git reset --hard`.
+9. Ne pas réécrire massivement les fichiers.
+10. Préserver l'architecture existante.
+11. Faire des corrections minimales et ciblées.
+12. Vérifier les résultats après chaque correction.
+
+Architecture à préserver :
+
+* `state.js` = source de vérité ;
+* `router.js` = navigation ;
+* `main.js` = orchestration ;
+* `gallery.js` = galerie data-driven ;
+* `letter.js` = enveloppe + révélation de la lettre ;
+* `game.js` = quiz + score + completion ;
+* `final.js` = écran final ;
+* `audio.js` = audio ;
+* `data/copine.js` et `data/jumelle.js` = contenu.
+
+Le système doit rester **un moteur unique pour deux univers**.
+
+---
+
+# 2. BUG — LETTRE VISIBLE AVANT OUVERTURE
+
+## Problème constaté
+
+Sur l'écran `letter`, le texte de la lettre est déjà visible immédiatement.
+
+Le comportement observé est :
+
+1. arrivée sur l'écran ;
+2. le texte de la lettre est déjà affiché ;
+3. l'enveloppe est affichée au-dessus ;
+4. clic sur l'enveloppe ;
+5. l'enveloppe disparaît ;
+6. le texte reste visible.
+
+Ce n'est pas le comportement souhaité.
+
+## Comportement attendu
+
+À l'arrivée sur l'écran :
+
+* l'enveloppe est visible ;
+* le contenu de la lettre est caché ;
+* aucun paragraphe de la lettre ne doit être lisible avant ouverture.
+
+Après clic sur l'enveloppe :
+
+* l'enveloppe s'ouvre/disparaît selon l'animation existante ;
+* la lettre apparaît progressivement ;
+* le contenu devient visible uniquement après l'ouverture ;
+* le bouton permettant de continuer apparaît au bon moment.
+
+Le comportement doit rester compatible avec :
+
+* reduced motion ;
+* double clic ;
+* clavier ;
+* audio de l'ouverture.
+
+Inspecter notamment :
+
+* `letter.js`
+* `screens.css`
+* `components.css`
+* `index.html`
+
+Ne pas simplement masquer arbitrairement tout l'écran : seule la **lettre** doit être cachée avant ouverture.
+
+---
+
+# 3. BUG — GALERIE INCOMPLÈTE
+
+## Problème constaté
+
+La galerie affiche actuellement trop peu de photos alors que plusieurs assets sont disponibles dans :
+
+```text
+site/assets/images/copine/
+site/assets/images/jumelle/
+```
+
+La galerie doit réellement exploiter les assets fournis.
+
+## À faire
+
+Inspecter :
+
+```text
+site/assets/images/copine/
+site/assets/images/jumelle/
+```
+
+puis :
+
+```text
+site/data/copine.js
+site/data/jumelle.js
+site/js/gallery.js
+```
+
+Déterminer quels assets existants ne sont actuellement pas utilisés.
+
+### Important
+
+Ne pas inventer de noms de fichiers.
+
+Utiliser uniquement les fichiers réellement présents.
+
+Ne pas transformer la galerie en composant spécifique à un univers.
+
+Les deux univers doivent conserver exactement la même structure de données.
+
+Si plusieurs photos sont disponibles pour un univers, les intégrer dans sa galerie de manière cohérente.
+
+Conserver les types déjà supportés :
+
+* `photo-large`
+* `photo-pair`
+* `text`
+* `video`
+
+L'objectif est que l'utilisateur puisse réellement voir les photos disponibles, et pas seulement quelques éléments représentatifs.
+
+Ne pas supprimer les médias existants qui fonctionnent.
+
+---
+
+# 4. QUIZ — TOUTES LES RÉPONSES DOIVENT ÊTRE CORRECTES
+
+Le quiz est volontairement conçu comme une expérience symbolique.
+
+Je veux que **toutes les questions aient une réponse correcte que l'utilisateur peut sélectionner**, et que le parcours puisse toujours aboutir à la réussite lorsqu'il répond aux questions.
+
+## Règle fonctionnelle
+
+Ne pas ajouter de système d'échec bloquant.
+
+Le flow doit rester :
+
+game
+↓
+réponse à la question 1
+↓
+question suivante
+↓
+réponse à la question 2
+↓
+mission-complete
+↓
+final
+
+## À vérifier
+
+Inspecter :
+
+* `site/data/copine.js`
+* `site/data/jumelle.js`
+* `site/js/game.js`
+
+Pour chaque univers :
+
+* vérifier que toutes les questions possèdent une réponse correcte ;
+* vérifier que l'index/identifiant de la bonne réponse correspond réellement à une option existante ;
+* vérifier que les deux univers ont des réponses cohérentes ;
+* corriger les données si une question possède actuellement une mauvaise réponse configurée.
+
+## Important
+
+Le moteur du quiz doit rester générique et data-driven.
+
+Ne pas ajouter :
+
+```js
+if (universe === "copine")
+```
+
+ou :
+
+```js
+if (universe === "jumelle")
+```
+
+pour forcer la réussite.
+
+La réussite doit simplement découler des données du quiz.
+
+## Comportement attendu
+
+Pour `copine` :
+
+```text
+question 1 → bonne réponse
+question 2 → bonne réponse
+→ mission-complete
+→ final
+```
+
+Pour `jumelle` :
+
+```text
+question 1 → bonne réponse
+question 2 → bonne réponse
+→ mission-complete
+→ final
+```
+
+Les réponses incorrectes peuvent toujours être détectées visuellement si elles existent, mais elles ne doivent pas empêcher définitivement la progression si le joueur sélectionne ensuite la bonne réponse.
+
+Ne pas supprimer le feedback existant si celui-ci fonctionne.
+
+## Validation
+
+Tester les deux univers en sélectionnant systématiquement les réponses définies comme correctes dans les données.
+
+Vérifier :
+
+* score final ;
+* progression ;
+* `completed` ;
+* accès à `mission-complete` ;
+* accès à `final`.
+
+Ne modifier que ce qui est nécessaire.
+
+Aucun commit.
+
+---
+
+# 5. NAVIGATION — RETOUR EN ARRIÈRE
+
+## Problème constaté
+
+Une fois un écran dépassé, il est impossible de revenir à l'écran précédent.
+
+Exemple :
+
+```text
+Gallery
+↓
+Letter
+```
+
+Une fois sur Letter, aucun moyen de revenir à Gallery.
+
+## Comportement attendu
+
+Ajouter une navigation arrière cohérente.
+
+Exemple :
+
+```text
+Landing
+↓
+Concept
+↓
+Universe selection
+↓
+Universe intro
+↓
+Gallery
+↓
+Letter
+↓
+Game intro
+↓
+Game
+↓
+Mission complete
+↓
+Final
+```
+
+Le joueur doit pouvoir revenir à l'étape précédente lorsque cela a du sens.
+
+### Contraintes
+
+Ne pas utiliser :
+
+```js
+history.pushState()
+history.back()
+popstate
+```
+
+L'architecture actuelle n'utilise volontairement pas l'historique navigateur.
+
+Implémenter le retour via le système de routing/state existant.
+
+Le router doit rester propriétaire de la navigation.
+
+Prévoir un bouton de retour visuellement discret et cohérent avec le design.
+
+Le bouton doit :
+
+* être accessible au clavier ;
+* avoir `type="button"` ;
+* avoir un label accessible ;
+* ne pas apparaître lorsque le retour n'a pas de sens ;
+* fonctionner sur mobile.
+
+Éviter de mettre un bouton "Retour" énorme au milieu du contenu.
+
+---
+
+# 6. NE PAS CASSER LE FLOW
+
+Le flow actuel reste :
+
+```text
+landing
+→ concept
+→ universe-selection
+→ universe-intro
+→ gallery
+→ letter
+→ game-intro
+→ game
+→ mission-complete
+→ final
+```
+
+Ne change pas l'ordre.
+
+Ne supprime aucun écran.
+
+Ne change pas les données personnelles déjà présentes.
+
+---
+
+# 7. VALIDATIONS OBLIGATOIRES
+
+Après les corrections :
+
+### JavaScript
+
+```bash
+node --check site/js/*.js
+```
+
+Si le shell ne permet pas cette syntaxe, exécuter `node --check` sur chaque fichier JS.
+
+### Git
+
+```bash
+git diff --check
+```
+
+### Test manuel/browser
+
+Tester au minimum :
+
+## Copine
+
+* entrée ;
+* galerie ;
+* lettre fermée ;
+* lettre ouverte ;
+* quiz ;
+* réussite ;
+* mission complete ;
+* final ;
+* retour arrière.
+
+## Jumelle
+
+Faire exactement le même test.
+
+Particulièrement vérifier :
+
+* toutes les photos ;
+* lettre ;
+* réponses du quiz ;
+* échec du quiz ;
+* réussite du quiz ;
+* final.
+
+### Test négatif obligatoire
+
+Tester explicitement le cas :
+
+```text
+Univers 2
+→ toutes les réponses incorrectes
+```
+
+Vérifier qu'il est **impossible d'obtenir ****`mission-complete`**.
+
+### Test positif
+
+Tester ensuite une partie réussie et vérifier :
+
+```text
+game
+→ mission-complete
+→ final
+```
+
+---
+
+# 8. RAPPORT FINAL
+
+À la fin, indique :
+
+### Fichiers inspectés
+
+### Fichiers modifiés
+
+### Corrections effectuées
+
+### Tests réussis
+
+### Tests négatifs
+
+### Éventuels problèmes restants
+
+### Verdict
+
+Utiliser :
+
+```text
+CORRECTIONS VALIDÉES
+```
+
+si tous les problèmes ci-dessus sont corrigés.
+
+Sinon :
+
+```text
+CORRECTIONS INCOMPLÈTES
+```
+
+Ne fais aucun commit.

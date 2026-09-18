@@ -11,12 +11,13 @@
  */
 
 import { subscribe, setState, getState } from "./state.js";
-import { goToStep, initRouter } from "./router.js";
+import { goToStep, goToPreviousStep, initRouter } from "./router.js";
 import { selectUniverse, getAllUniverses } from "./univers.js";
 import { renderGallery } from "./gallery.js";
 import { renderLetter } from "./letter.js";
 import { renderGame } from "./game.js";
 import { renderFinal } from "./final.js";
+import { startAmbientAudio } from "./audio.js";
 import { qs, qsa } from "./utils.js";
 
 /**
@@ -38,7 +39,7 @@ function renderUniverseChoices() {
         .join("; ");
 
       return `
-        <button class="universe-card" data-action="select-universe" data-universe="${universe.id}">
+        <button type="button" class="universe-card" data-action="select-universe" data-universe="${universe.id}">
           <span class="universe-card__visual" style="${visualStyle}"></span>
           <span class="universe-card__prenom">${universe.prenom}</span>
           <span class="universe-card__tagline">${universe.tagline}</span>
@@ -98,6 +99,8 @@ function applyUniverseContent(universe) {
 
 function bindNavigation() {
   document.addEventListener("click", (event) => {
+    startAmbientAudio();
+
     const trigger = event.target.closest("[data-action]");
     if (!trigger) return;
 
@@ -105,6 +108,10 @@ function bindNavigation() {
 
     if (action === "go-to" && trigger.dataset.step) {
       goToStep(trigger.dataset.step);
+    }
+
+    if (action === "go-back") {
+      goToPreviousStep();
     }
 
     if (action === "select-universe" && trigger.dataset.universe) {

@@ -35,6 +35,11 @@ video {
 
 button {
   font-family: inherit;
+  appearance: none;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -19,6 +19,11 @@ const STEPS_REQUIRING_UNIVERSE = new Set(
   STEPS.slice(STEPS.indexOf("universe-intro"))
 );
 
+function getPreviousStep(step = getState().currentStep) {
+  const index = STEPS.indexOf(step);
+  return index > 0 ? STEPS[index - 1] : null;
+}
+
 function isTransitionAllowed(step) {
   if (!STEPS.includes(step)) {
     console.warn(`[router.js] Étape inconnue : "${step}"`);
@@ -51,6 +56,11 @@ function goToStep(step) {
   return true;
 }
 
+function goToPreviousStep() {
+  const previousStep = getPreviousStep();
+  return previousStep ? goToStep(previousStep) : false;
+}
+
 /**
  * Initialise le router : rend l'écran courant et se met à jour à
  * chaque changement d'état.
@@ -60,4 +70,4 @@ function initRouter() {
   return (state) => renderScreen(state.currentStep);
 }
 
-export { goToStep, initRouter, isTransitionAllowed };
+export { goToStep, goToPreviousStep, getPreviousStep, initRouter, isTransitionAllowed };

@@ -10,18 +10,25 @@
   transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
 
-.btn:hover,
-.btn:focus-visible {
-  opacity: 0.85;
-}
-
-.btn:active {
-  transform: scale(0.97);
-}
-
 .btn:focus-visible {
   outline: 2px solid var(--theme-accent);
   outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    opacity: 0.85;
+  }
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .card {

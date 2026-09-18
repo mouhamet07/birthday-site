@@ -15,7 +15,7 @@
 </head>
 <body>
 
-  <main>
+  <main aria-label="Expérience du 28 septembre">
 
     <!-- LANDING -->
     <section class="intro-screen" data-screen="landing">
@@ -29,7 +29,7 @@
           Certaines dates ne sont pas de simples dates.
           Elles deviennent des souvenirs à elles seules.
         </p>
-        <button class="intro-cta intro-reveal" style="--reveal-delay:450ms" data-action="go-to" data-step="concept">
+        <button type="button" class="intro-cta intro-reveal" style="--reveal-delay:450ms" data-action="go-to" data-step="concept">
           Entrer
         </button>
       </div>
@@ -45,9 +45,10 @@
           Le même 28 septembre. Deux personnes. Deux souvenirs.
           Deux façons de raconter cette journée.
         </p>
-        <button class="intro-cta intro-reveal" style="--reveal-delay:300ms" data-action="go-to" data-step="universe-selection">
+        <button type="button" class="intro-cta intro-reveal" style="--reveal-delay:300ms" data-action="go-to" data-step="universe-selection">
           Découvrir
         </button>
+        <button type="button" class="screen-back" data-action="go-back" aria-label="Revenir à l'écran précédent">Retour</button>
       </div>
     </section>
 
@@ -61,6 +62,7 @@
         <div class="universe-selection__choices intro-reveal" style="--reveal-delay:240ms" data-content="universe-choices">
           <!-- Cartes générées dynamiquement par main.js à partir de copine.js / jumelle.js -->
         </div>
+        <button type="button" class="screen-back" data-action="go-back" aria-label="Revenir à l'écran précédent">Retour</button>
       </div>
     </section>
 
@@ -80,9 +82,10 @@
         <p class="universe-intro-screen__eyebrow intro-reveal" style="--reveal-delay:220ms" data-content="hero-eyebrow">—</p>
         <h2 class="universe-intro-screen__title intro-reveal" style="--reveal-delay:300ms" data-content="hero-title">—</h2>
         <p class="universe-intro-screen__subtitle intro-reveal" style="--reveal-delay:380ms" data-content="hero-subtitle">—</p>
-        <button class="btn intro-reveal" style="--reveal-delay:460ms" data-action="go-to" data-step="gallery">
+        <button type="button" class="btn intro-reveal" style="--reveal-delay:460ms" data-action="go-to" data-step="gallery">
           Continuer
         </button>
+        <button type="button" class="screen-back" data-action="go-back" aria-label="Revenir à l'écran précédent">Retour</button>
       </div>
     </section>
 
@@ -91,7 +94,8 @@
       <div class="gallery-screen__content" data-content="gallery-content">
         <!-- Blocs générés dynamiquement par gallery.js à partir de universe.gallery -->
       </div>
-      <button class="btn gallery-screen__cta" data-action="go-to" data-step="letter">Continuer</button>
+      <button type="button" class="btn gallery-screen__cta" data-action="go-to" data-step="letter">Continuer</button>
+      <button type="button" class="screen-back gallery-screen__back" data-action="go-back" aria-label="Revenir à l'écran précédent">Retour</button>
     </section>
 
     <!-- LETTER -->
@@ -99,6 +103,7 @@
       <div class="letter-screen__content" data-content="letter-content">
         <!-- Enveloppe + lettre générées dynamiquement par letter.js à partir de universe.letter -->
       </div>
+      <button type="button" class="screen-back" data-action="go-back" aria-label="Revenir à l'écran précédent">Retour</button>
     </section>
 
     <!-- GAME INTRO -->
@@ -108,7 +113,8 @@
         <p class="game-intro-screen__text" data-content="game-intro-text">
           Une petite mission t'attend.
         </p>
-        <button class="btn" data-action="go-to" data-step="game">Commencer la mission</button>
+        <button type="button" class="btn" data-action="go-to" data-step="game">Commencer la mission</button>
+        <button type="button" class="screen-back" data-action="go-back" aria-label="Revenir à l'écran précédent">Retour</button>
       </div>
     </section>
 
@@ -117,6 +123,7 @@
       <div class="game-screen__content" data-content="game-content">
         <!-- Questions générées dynamiquement par game.js à partir de universe.game -->
       </div>
+      <button type="button" class="screen-back" data-action="go-back" aria-label="Revenir à l'écran précédent">Retour</button>
     </section>
 
     <!-- MISSION COMPLETE -->
@@ -132,9 +139,10 @@
         <p class="mission-complete-screen__message intro-reveal" style="--reveal-delay:420ms">
           Tu as trouvé la dernière pièce de ton histoire.
         </p>
-        <button class="btn intro-reveal" style="--reveal-delay:560ms" data-action="go-to" data-step="final">
+        <button type="button" class="btn intro-reveal" style="--reveal-delay:560ms" data-action="go-to" data-step="final">
           Découvrir
         </button>
+        <button type="button" class="screen-back" data-action="go-back" aria-label="Revenir à l'écran précédent">Retour</button>
       </div>
     </section>
 
@@ -143,6 +151,7 @@
       <div class="final-screen__content" data-content="final-content">
         <!-- Contenu généré dynamiquement par final.js à partir de universe.finalScreen -->
       </div>
+      <button type="button" class="screen-back" data-action="go-back" aria-label="Revenir à l'écran précédent">Retour</button>
     </section>
 
   </main>

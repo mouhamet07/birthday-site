@@ -19,6 +19,7 @@
  */
 
 import { getState, setState, resetGame } from "./state.js";
+import { playSuccessChime } from "./audio.js";
 import { prefersReducedMotion } from "./utils.js";
 
 const DEFAULTS = {
@@ -30,7 +31,6 @@ const DEFAULTS = {
 // texte s'applique aux deux univers, la personnalisation vient
 // uniquement des questions elles-mêmes.
 const CORRECT_FEEDBACK = "✨ Bien joué.";
-const WRONG_FEEDBACK = "Presque...";
 const EMPTY_STATE_MESSAGE = "Cette mission arrive bientôt.";
 
 // Laisse le temps de voir le feedback avant de passer à la question
@@ -132,32 +132,26 @@ function renderQuestion(game, container, onComplete) {
 }
 
 /**
- * Traite la réponse choisie : verrouille les options, affiche un
- * feedback discret, met à jour le score dans state.js, puis avance.
+ * Traite le choix : chaque réponse est valide dans cette expérience
+ * symbolique. Les options sont verrouillées, puis la question suivante
+ * est affichée.
  */
 function handleAnswer(game, container, onComplete, question, selectedIndex, selectedButton, buttons, feedback) {
-  const isCorrect = selectedIndex === question.answer;
-
   buttons.forEach((button, index) => {
     button.disabled = true;
-    if (index === question.answer) {
-      button.classList.add("is-correct");
-    }
-    if (index === selectedIndex && !isCorrect) {
-      button.classList.add("is-wrong");
-    }
     if (index === selectedIndex) {
+      button.classList.add("is-correct");
       button.classList.add("is-selected");
     }
   });
 
-  feedback.textContent = isCorrect ? CORRECT_FEEDBACK : WRONG_FEEDBACK;
+  feedback.textContent = CORRECT_FEEDBACK;
 
   const current = getState().game;
   setState({
     game: {
       ...current,
-      score: current.score + (isCorrect ? 1 : 0),
+      score: current.score + 1,
       answers: [...current.answers, selectedIndex]
     }
   });
@@ -174,7 +168,6 @@ function advance(game, container, onComplete) {
   const nextIndex = current.currentQuestion + 1;
 
   if (nextIndex >= game.questions.length) {
-    setState({ game: { ...current, completed: true } });
     finishGame(onComplete);
     return;
   }
@@ -184,6 +177,11 @@ function advance(game, container, onComplete) {
 }
 
 function finishGame(onComplete) {
+  const current = getState().game;
+  if (current.completed) return;
+
+  setState({ game: { ...current, completed: true } });
+  playSuccessChime();
   if (typeof onComplete === "function") {
     onComplete();
   }
