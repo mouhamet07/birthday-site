@@ -541,6 +541,7 @@
 .gallery-media__video {
   width: 100%;
   height: 100%;
+  object-fit: contain;
   display: block;
 }
 
@@ -606,8 +607,8 @@
   font-size: 1rem;
 }
 
-.envelope__seal::before {
-  content: "✦";
+.envelope__seal .bi {
+  font-size: 1.1rem;
 }
 
 .envelope.is-open .envelope__flap {
@@ -850,6 +851,12 @@
   margin: 0;
 }
 
+.game-feedback__icon {
+  display: inline-block;
+  margin-right: 0.45rem;
+  color: var(--theme-primary);
+}
+
 /* ------------------------------------------------------------------ */
 /* Mission Complete (Phase 6)                                         */
 /* ------------------------------------------------------------------ */
@@ -928,6 +935,72 @@
   min-height: 1em;
   margin: 0;
   text-shadow: 0 0 18px color-mix(in srgb, var(--theme-primary) 45%, transparent);
+}
+
+.final-screen__decoration .bi,
+.mission-complete-screen__spark .bi {
+  color: var(--theme-primary);
+}
+
+.final-screen__decoration .bi {
+  display: inline-block;
+  font-size: var(--font-size-xl);
+}
+
+.final-confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.final-confetti__piece {
+  position: absolute;
+  top: -1rem;
+  left: var(--confetti-x);
+  width: 0.45rem;
+  height: 0.8rem;
+  background: var(--confetti-color, var(--theme-primary));
+  opacity: 0;
+  transform: rotate(var(--confetti-rotation));
+  animation: confetti-fall 1800ms var(--confetti-delay) ease-out both;
+}
+
+.final-confetti__piece:nth-child(3n) {
+  --confetti-color: var(--theme-accent);
+  width: 0.35rem;
+  height: 0.6rem;
+}
+
+.final-confetti__piece:nth-child(3n + 1) {
+  --confetti-color: var(--theme-primary);
+}
+
+.final-confetti__piece:nth-child(3n + 2) {
+  --confetti-color: var(--theme-muted);
+  border-radius: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+}
+
+@keyframes confetti-fall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -0.5rem, 0) rotate(var(--confetti-rotation));
+  }
+  15% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-1rem, 22rem, 0) rotate(calc(var(--confetti-rotation) + 180deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .final-confetti {
+    display: none;
+  }
 }
 
 .final-date {

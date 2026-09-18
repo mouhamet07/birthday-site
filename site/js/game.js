@@ -30,7 +30,7 @@ const DEFAULTS = {
 // Messages génériques du moteur (pas de contenu personnel) : le même
 // texte s'applique aux deux univers, la personnalisation vient
 // uniquement des questions elles-mêmes.
-const CORRECT_FEEDBACK = "✨ Bien joué.";
+const CORRECT_FEEDBACK = "Bien joué.";
 const EMPTY_STATE_MESSAGE = "Cette mission arrive bientôt.";
 
 // Laisse le temps de voir le feedback avant de passer à la question
@@ -145,7 +145,12 @@ function handleAnswer(game, container, onComplete, question, selectedIndex, sele
     }
   });
 
-  feedback.textContent = CORRECT_FEEDBACK;
+  feedback.replaceChildren();
+  const feedbackIcon = document.createElement("span");
+  feedbackIcon.className = "game-feedback__icon bi bi-check-circle";
+  feedbackIcon.setAttribute("aria-hidden", "true");
+  feedback.appendChild(feedbackIcon);
+  feedback.append(CORRECT_FEEDBACK);
 
   const current = getState().game;
   setState({

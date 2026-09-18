@@ -20,7 +20,7 @@ export default {
   },
 
   hero: {
-    image: "assets/images/jumelle/hero.webp",
+    image: "assets/images/jumelle/hero.jpg",
     eyebrow: "Placeholder eyebrow",
     title: "Placeholder titre hero",
     subtitle: "Placeholder sous-titre hero."
@@ -35,7 +35,7 @@ export default {
   gallery: [
     {
       type: "photo-large",
-      src: "assets/images/jumelle/gallery-01.webp",
+      src: "assets/images/jumelle/gallery-01.jpg",
       alt: "Placeholder — description de la photo.",
       caption: "Placeholder légende."
     },
@@ -46,34 +46,16 @@ export default {
       content: "Placeholder — texte court accompagnant ce souvenir."
     },
     {
-      type: "photo-pair",
-      items: [
-        {
-          src: "assets/images/jumelle/gallery-02.webp",
-          alt: "Placeholder — description de la photo.",
-          caption: "Placeholder légende."
-        },
-        {
-          src: "assets/images/jumelle/gallery-03.webp",
-          alt: "Placeholder — description de la photo.",
-          caption: "Placeholder légende."
-        }
-      ]
+      type: "photo-large",
+      src: "assets/images/jumelle/gallery-03.webp",
+      alt: "Placeholder — description de la photo.",
+      caption: "Placeholder légende."
     },
     {
-      type: "photo-pair",
-      items: [
-        {
-          src: "assets/images/jumelle/gallery-04.webp",
-          alt: "Placeholder — description de la photo.",
-          caption: "Placeholder légende."
-        },
-        {
-          src: "assets/images/jumelle/gallery-05.webp",
-          alt: "Placeholder — description de la photo.",
-          caption: "Placeholder légende."
-        }
-      ]
+      type: "photo-large",
+      src: "assets/images/jumelle/gallery-05.webp",
+      alt: "Placeholder — description de la photo.",
+      caption: "Placeholder légende."
     },
     {
       type: "video",
@@ -124,8 +106,8 @@ export default {
     date: "28.09.2026",
     title: "Placeholder titre final",
     message: "Placeholder — message final, ton chaleureux et sincère.",
-    image: "",
-    imageAlt: "Placeholder — description de la photo finale.",
-    decoration: "stars"
+    image: "assets/images/final.jpeg",
+    imageAlt: "Souvenir d'enfance partagé.",
+    decoration: "confetti"
   }
 };

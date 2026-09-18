@@ -57,6 +57,10 @@ function createEnvelope(openLabel, onOpen) {
 
   const seal = document.createElement("div");
   seal.className = "envelope__seal";
+  const sealIcon = document.createElement("i");
+  sealIcon.className = "bi bi-envelope-heart";
+  sealIcon.setAttribute("aria-hidden", "true");
+  seal.appendChild(sealIcon);
   body.appendChild(seal);
 
   const button = document.createElement("button");

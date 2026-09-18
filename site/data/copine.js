@@ -50,68 +50,44 @@ export default {
       content: "Placeholder — texte court accompagnant ce souvenir."
     },
     {
-      type: "photo-pair",
-      items: [
-        {
-          src: "assets/images/copine/gallery-02.webp",
-          alt: "Placeholder — description de la photo.",
-          caption: "Placeholder légende."
-        },
-        {
-          src: "assets/images/copine/gallery-03.webp",
-          alt: "Placeholder — description de la photo.",
-          caption: "Placeholder légende."
-        }
-      ]
-    },
-    {
-      type: "photo-pair",
-      items: [
-        {
-          src: "assets/images/copine/gallery-04.webp",
-          alt: "Placeholder — description de la photo.",
-          caption: "Placeholder légende."
-        },
-        {
-          src: "assets/images/copine/gallery-05.webp",
-          alt: "Placeholder — description de la photo.",
-          caption: "Placeholder légende."
-        }
-      ]
-    },
-    {
-      type: "photo-pair",
-      items: [
-        {
-          src: "assets/images/copine/gallery-06.webp",
-          alt: "Placeholder — description de la photo.",
-          caption: "Placeholder légende."
-        },
-        {
-          src: "assets/images/copine/gallery-07.webp",
-          alt: "Placeholder — description de la photo.",
-          caption: "Placeholder légende."
-        }
-      ]
-    },
-    {
-      type: "photo-pair",
-      items: [
-        {
-          src: "assets/images/copine/gallery-08.webp",
-          alt: "Placeholder — description de la photo.",
-          caption: "Placeholder légende."
-        },
-        {
-          src: "assets/images/copine/gallery-09.webp",
-          alt: "Placeholder — description de la photo.",
-          caption: "Placeholder légende."
-        }
-      ]
+      type: "photo-large",
+      src: "assets/images/copine/gallery-03.webp",
+      alt: "Placeholder — description de la photo.",
+      caption: "Placeholder légende."
     },
     {
       type: "photo-large",
-      src: "assets/images/copine/gallery-10.webp",
+      src: "assets/images/copine/gallery-04.jpg",
+      alt: "Placeholder — description de la photo.",
+      caption: "Placeholder légende."
+    },
+    {
+      type: "photo-large",
+      src: "assets/images/copine/gallery-05.webp",
+      alt: "Placeholder — description de la photo.",
+      caption: "Placeholder légende."
+    },
+    {
+      type: "photo-large",
+      src: "assets/images/copine/gallery-06.jpg",
+      alt: "Placeholder — description de la photo.",
+      caption: "Placeholder légende."
+    },
+    {
+      type: "photo-large",
+      src: "assets/images/copine/gallery-07.jpg",
+      alt: "Placeholder — description de la photo.",
+      caption: "Placeholder légende."
+    },
+    {
+      type: "photo-large",
+      src: "assets/images/copine/gallery-08.webp",
+      alt: "Placeholder — description de la photo.",
+      caption: "Placeholder légende."
+    },
+    {
+      type: "photo-large",
+      src: "assets/images/copine/gallery-10.jpg",
       alt: "Placeholder — description de la photo.",
       caption: "Placeholder légende."
     },
@@ -164,7 +140,7 @@ export default {
     date: "28.09.2026",
     title: "Placeholder titre final",
     message: "Placeholder — message final, ton plus intime et romantique.",
-    image: "",
+    image: "assets/images/final.jpeg",
     imageAlt: "Placeholder — description de la photo finale.",
     decoration: "hearts"
   }

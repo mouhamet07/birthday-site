@@ -56,7 +56,19 @@ function createMediaShell({ isVideo = false } = {}) {
   return shell;
 }
 
-function renderImageBlock(src, alt, caption) {
+function createImage({ src, alt, fit, position }) {
+  const img = document.createElement("img");
+  img.className = "gallery-media__image";
+  img.src = src;
+  img.alt = sanitizeText(alt) || "Photo de souvenir";
+  img.loading = "eager";
+  img.decoding = "async";
+  if (fit) img.style.objectFit = fit;
+  if (position) img.style.objectPosition = position;
+  return img;
+}
+
+function renderImageBlock(src, alt, caption, fit, position) {
   const wrapper = document.createElement("figure");
   wrapper.className = "gallery-block gallery-block--image";
 
@@ -73,12 +85,7 @@ function renderImageBlock(src, alt, caption) {
     return wrapper;
   }
 
-  const img = document.createElement("img");
-  img.className = "gallery-media__image";
-  img.src = src;
-  img.alt = sanitizeText(alt) || "Photo de souvenir";
-  img.loading = "eager";
-  img.decoding = "async";
+  const img = createImage({ src, alt, fit, position });
 
   img.addEventListener(
     "error",
@@ -103,7 +110,7 @@ function renderImageBlock(src, alt, caption) {
 
 function renderPhotoLarge(block) {
   const item = block || {};
-  return renderImageBlock(item.src, item.alt, item.caption);
+  return renderImageBlock(item.src, item.alt, item.caption, item.fit, item.position);
 }
 
 function renderTextBlock(block) {
@@ -155,6 +162,8 @@ function renderVideoBlock(block) {
 
   const video = document.createElement("video");
   video.className = "gallery-media__video";
+  if (item.fit) video.style.objectFit = item.fit;
+  if (item.position) video.style.objectPosition = item.position;
   video.src = item.src;
   video.controls = true;
   video.playsInline = true;
@@ -196,7 +205,9 @@ function renderPhotoPair(block) {
   items.forEach((entry) => {
     const pairItem = document.createElement("div");
     pairItem.className = "gallery-photo-pair__item";
-    pairItem.appendChild(renderImageBlock(entry.src, entry.alt, entry.caption));
+    pairItem.appendChild(
+      renderImageBlock(entry.src, entry.alt, entry.caption, entry.fit, entry.position)
+    );
     wrapper.appendChild(pairItem);
   });
 

@@ -16,12 +16,11 @@
   --theme-textOnPrimary: #ffffff;
 }
 
-/* Décorations spécifiques activées via finalScreen.decoration.
-   Ajouté ici plutôt que codé en dur dans le JS. */
-[data-decoration="hearts"] .final-screen__decoration::before {
-  content: "❤";
-}
+/* Final decorations use Bootstrap Icons. */
 
-[data-decoration="stars"] .final-screen__decoration::before {
-  content: "✨";
-}
+
+
+
+
+
+
